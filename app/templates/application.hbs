@@ -1,3 +1,30 @@
-<h2 id="title">Welcome to Ember.js</h2>
 
-{{outlet}}
+<section id="todoapp">
+    <header id="header">
+        <h1>todos</h1>
+    </header>
+    
+    {{outlet}}		<!--This {{outlet}} section is basically a placeholder that the router(app/router.js) will fill with the appropriate template based on the requested url -->
+
+	<!-- so It works like this
+	PART A
+	1) first application.hbs is processed
+	2) When seeeing the {{outlet}} tag, the router is asked what to put in its place 
+	3) The router (router.js) notices that we have defined a todos resource in Router.map function. Hence, ember will look for todos.hbs template at '/' route(app/templates/todos.hbs)
+	**************************************
+	PART B
+	4) Parallelly, We put FIXTURE data(we could have used REST and would have mentioned same in adapter) in model and then generate a route to load our data from 
+	model(app/models/todos.js) to our component(app/templates/components/todo-item.hbs)
+	**************************************
+	PART C
+	5) To have the data in app/templates/todos.hbs from
+	model(app/models/todos.js) (via component), we use a loop.
+		Our component sits inside an 
+	{ {#each} } handlebars block helper. This helper will iterate over an array. The array we are iterating over is the 'model' part of todo in model, remember we provided the model to the template using the model hook in app/routes/todos.js. During each loop we are naming that instance of the model 'todo' which we pass into the component so we can render the title.
+
+	-->
+</section>
+ 
+<footer id="info">
+    <p>Double-click to edit a todo</p>
+</footer>

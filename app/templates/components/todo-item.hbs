@@ -1,0 +1,27 @@
+<!-- the {{todo.titlle}} represents the varibale we have initialized in our todo model (app/models/todo.js)-->
+
+<li class="{{if todo.isCompleted 'completed'}}">
+	<!--The above line means that
+assign the css class 'completed to the todo items for which value of todo.isCompleted is true'-->
+{{#if isEditing}}
+       <!-- <input class="edit"> -->
+        {{input type="text" class="edit" value=todo.title focus-out="acceptChanges"
+        insert-newline="acceptChanges"}}
+{{else}}
+    {{input type="checkbox" checked=todo.isCompleted class="toggle"}}
+    <!--The above line means that check/unckeck a todo item based on its todo.isCompleted value and vice versa-->
+    <label {{action "editTodo" on="doubleClick"}}>
+    {{todo.title}} </label>
+    <!--The input that we render when we are editing has two events, focus-out and insert-newline,
+	these events corresponds to cliking away from the input  box and pressing enter respectively. Both events will fire the action 'acceptChanges'
+	We will pass this action from our componet to our route so it can edit the todos title. First we pass it from component(app/components/todo-item.js) to template (app/template/todos.hbs) 
+	and finally we handle this action in route
+	(app/routes/todos.js)
+	-->
+	<button {{action "deleteTodo" todo}} class="destroy"></button>
+    <!-- <button class="destroy"></button> -->
+    
+ {{/if}}
+</li>
+
+<!-- Our todo-item is very simple at the moment. It's a list item whose label is a handlebars variable { {todo.title} }. -->

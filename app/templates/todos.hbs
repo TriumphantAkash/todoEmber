@@ -1,0 +1,50 @@
+
+<!--
+This code was used before we implemented
+create new Todo item functionality
+
+<input type="text" id="new-todo" placeholder="What needs to be done?" />
+
+-->
+
+{{input type = "text" id="new-todo" placeholder="enter a new todo item here.."
+value=newTitle action="createTodo"}}
+ 
+<section id="main">
+    <ul id="todo-list">
+    	{{#each todo in model}}  <!--each todo item in model-->
+            {{todo-item acceptChanges="acceptChanges" deleteTodo="deleteTodo" todo=todo}}
+            <!-- Initialize the component todo-item with value fetched from model-->
+        <!--Also, we are replicating the action acceptChanges here which is passed from the component
+        Now, we will handle this action in our route(app/routes/todos.js)-->
+
+        <!--
+        Notice that for the edit action, we wanted two different user actions, focus-out and insert new-line to trigger the action, so inside our action handler we retrieved the todo with this.get('todo'), but in the case of the button, it's default action is triggered by a click, so we could send the todo into the action handler from the handlebars.
+        -->
+
+    	{{/each}}
+    </ul>
+    <input type="checkbox" id="toggle-all">
+</section>
+<!-- You can see we are calling our component with { { todo-item } }. Our component sits inside an { { #each } } handlebars block helper. This helper will iterate over an array. The array we are iterating over is the 'model' part of todo in model, remember we provided the model to the template using the model hook in app/routes/todos.js. During each loop we are naming that instance of the model 'todo' which we pass into the component so we can render the title. Note we could have just passed the todo.title to the component, but we'll need a lot of the other properties on the todo for the component so I've decided to pass in the whole todo--> 
+
+<footer id="footer">
+    <span id="todo-count">
+        <strong>2</strong> todos left
+    </span>
+    <ul id="filters">
+        <li>
+            <a href="all" class="selected">All</a>
+        </li>
+        <li>
+            <a href="active">Active</a>
+        </li>
+        <li>
+            <a href="completed">Completed</a>
+        </li>
+    </ul>
+ 
+    <button id="clear-completed">
+        Clear completed (1)
+    </button>
+</footer>
